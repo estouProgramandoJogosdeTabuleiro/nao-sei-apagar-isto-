@@ -1,0 +1,58 @@
+#versão da lista
+
+#_____________________*****NÃO MEXER EM NADA A PARTIR DE AQUI****___________________________________________
+def novaPartida (n):
+    pontos=[['.' for x in range(0,n)]for x in range(0,n)] #matriz n^2 com os pontos(problema: o índice 0 nas linhas é aqui na linha superior em vez da inferior como pretendido)
+    return pontos
+
+
+def imprimir(jogo):
+    tamanho=len(jogo)
+    a=tamanho-1
+    coisas=''
+    for l in jogo:
+        if a>=10:
+            coisas+=(f'{a}│{" ".join(l)}\n')
+            a-=1
+        else:
+            coisas+=(f' {a}│{" ".join(l)}\n')
+            a-=1
+
+    linhaHorizontal=''.join(['─' for x in range(0,2*tamanho-1)])
+    coisas+=(f'  └{linhaHorizontal}\n')
+
+    nAlfa=[str(i) for i in range(0, tamanho)]
+    nAlfa2 = ' '.join(nAlfa)
+    coisas+=(f"   {nAlfa2}\n")
+
+    return coisas
+
+
+def fazerJogada (jogo,jogada):      #X joga sempre primeiro
+    continhas=0
+    for jO in range(0,len(jogo)):
+        for iO in range(0,len(jogo)):
+          if jogo[jO][iO]=='O' or jogo[jO][iO]=='X':
+            continhas+=1
+
+
+    j=len(jogo)-1-jogada[0]
+    i=jogada[1]
+    if continhas%2==0:
+      jogo[j][i]='X'
+    else:
+      jogo[j][i]='O'
+    return jogo
+#_____________________*****NÃO MEXER EM NADA ATÉ AQUI****___________________________________________
+
+A=novaPartida(9)#este é o número de casas que têm em cada linha e coluna do jogo. está programado para 9x9, o tabuleiro de quando se joga Atari num tabuleiro de Xadrez. Se quiserem mudar, é só trocar o 9 pelo número que querem
+jogadas = []    #aqui põem-se as jogadas feitas. Para fazer uma jogada, escreve-se (n,m) dentro dos [], sendo n a linha e m a coluna. Ponham uma vírgula entre cada jogada. Exemplo: jogadas = [(1,2),(8,8),(2,2)]. O primeiro a jogar é sempre o X, então as jogadas ímpar vão ser sempre X e as pares O
+
+#carrega no play entre cada jogada para ver como está o tabuleiro
+
+#_____________________*****NÃO MEXER EM NADA A PARTIR DE AQUI****___________________________________________
+for jogada in jogadas:
+  A = fazerJogada(A, jogada)
+
+
+print(imprimir(A))
